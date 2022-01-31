@@ -130,7 +130,13 @@ export class Tolgee {
   public async run(): Promise<void> {
     this.dependencyService.run();
     if (this.properties.config.mode === 'development') {
-      await this.coreService.loadApiKeyDetails();
+      try {
+        await this.coreService.loadApiKeyDetails();
+      } catch (e) {
+        console.error("Couldn't connect to tolgee");
+        console.error(e);
+        this.properties.config.mode = 'production';
+      }
     }
 
     await this.dependencyService.translationService.loadTranslations();

@@ -54,6 +54,10 @@ jobs:
       - name: Update version
         run: lerna version --yes
 
+      # set TOLGEE_UI_VERSION for @tolgee/core rebuild
+      - name: Set env
+        run: echo "TOLGEE_UI_VERSION=$(npm run --silent ui-version)" >> $GITHUB_ENV
+
       - name: Some packages need to be rebuilt after version change
         run: npm run ci:rebuild-prod
 

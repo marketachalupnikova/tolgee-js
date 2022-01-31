@@ -2,6 +2,9 @@ import { Mode, TreeTranslationsData } from './types';
 import { NodeHelper } from './helpers/NodeHelper';
 import { ModifierKey } from './Constants/ModifierKey';
 
+const API_KEY_LOCAL_STORAGE = '__tolgee_apiKey';
+const API_URL_LOCAL_STORAGE = '__tolgee_apiUrl';
+
 const DEFAULT_TARGET_ELEMENT_SUPPLIER = () => {
   if (typeof document !== 'undefined') {
     return document.body;
@@ -10,7 +13,7 @@ const DEFAULT_TARGET_ELEMENT_SUPPLIER = () => {
 
 export class TolgeeConfig {
   mode?: Mode;
-  apiUrl?: string = 'https://app.tolgee.io';
+  apiUrl?: string;
   apiKey?: string;
   inputPrefix?: string = '%-%tolgee:';
   inputSuffix?: string = '%-%';
@@ -72,6 +75,10 @@ export class TolgeeConfig {
     });
 
     Object.assign(this, config || {});
+    if (typeof localStorage !== 'undefined') {
+      this.apiUrl = localStorage.getItem(API_URL_LOCAL_STORAGE) || this.apiUrl;
+      this.apiKey = localStorage.getItem(API_KEY_LOCAL_STORAGE) || this.apiKey;
+    }
     if (this._targetElement === undefined) {
       this._targetElement = DEFAULT_TARGET_ELEMENT_SUPPLIER();
     }

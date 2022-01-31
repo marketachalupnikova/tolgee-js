@@ -45,6 +45,7 @@
     "install:e2e": "npm --prefix=e2e install",
     "commitmsg": "commitlint -e $GIT_PARAMS",
     "link-react": "node scripts/linkReact.js",
+    "ui-version": "node scripts/tolgeeUiVersion.js",
     "check-cache": "node scripts/checkCacheSize.js",
     "preinstall": "node scripts/checkCorrectInstall.js"
   },
